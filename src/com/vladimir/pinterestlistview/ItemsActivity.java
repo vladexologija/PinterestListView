@@ -12,8 +12,6 @@ import android.widget.ListView;
 import com.vladimir.pinterestlistview.adapters.ItemsAdapter;
 
 public class ItemsActivity extends Activity {
-
-	private final String TAG = "FeedActivity";
 	
 	private ListView listViewLeft;
 	private ListView listViewRight;
@@ -38,7 +36,8 @@ public class ItemsActivity extends Activity {
 		listViewLeft.setOnScrollListener(scrollListener);
 		listViewRight.setOnScrollListener(scrollListener);
 	}
-
+	
+	// Passing the touch event to the opposite list
 	OnTouchListener touchListener = new OnTouchListener() {					
 		boolean dispatched = false;
 		
@@ -56,7 +55,12 @@ public class ItemsActivity extends Activity {
 			return false;
 		}
 	};
-
+	
+	/**
+	 * Synchronizing scrolling 
+	 * Distance from the top of the first visible element opposite list:
+	 * sum_heights(opposite invisible screens) - sum_heights(invisible screens) + distance from top of the first visible child
+	 */
 	OnScrollListener scrollListener = new OnScrollListener() {
 		
 		@Override
